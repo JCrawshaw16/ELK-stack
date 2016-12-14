@@ -11,7 +11,7 @@ sudo apt-get install -y elasticsearch
 sudo service elasticsearch restart
 
 ##Test to see it works##
-curl localhost:9200
+#curl localhost:9200
 
 
 ##Install logstash##
@@ -21,25 +21,19 @@ sudo apt-get update -y
 
 sudo apt-get install -y logstash
 sudo update-rc.d logstash defaults 97 8
-sudo service logstash start
+#sudo service logstash start
 
 ##Test to see if it runs##
 
-sudo service logstash status
+#sudo service logstash status
 
 ##Redirect System logs to Logstash##
 
-sudo touch /etc/logstash/conf.d/10-syslog.conf
-sudo echo "input {" > /etc/logstash/conf.d/10-syslog.conf
-sudo echo "file {" >> /etc/logstash/conf.d/10-syslog.conf
-sudo echo "type => "syslog"" >> /etc/logstash/conf.d/10-syslog.conf
-sudo echo "path => [ "/var/log/messages", "/var/log/*.log" ]" >> /etc/logstash/conf.d/10-syslog.conf
-sudo echo "}" >> /etc/logstash/conf.d/10-syslog.conf
-sudo echo "}" >> /etc/logstash/conf.d/10-syslog.conf
-sudo echo "output {" >> /etc/logstash/conf.d/10-syslog.conf
-sudo echo "stdout {" >> /etc/logstash/conf.d/10-syslog.conf
-sudo echo "codec => rubydebug" >> /etc/logstash/conf.d/10-syslog.conf
-sudo echo "}" >> /etc/logstash/conf.d/10-syslog.conf
-sudo echo "elasticsearch {" >> /etc/logstash/conf.d/10-syslog.conf
-sudo echo "host => "http://52.212.120.173"" >> /etc/logstash/conf.d/10-syslog.conf
-sudo echo "}\n}" >> /etc/logstash/conf.d/10-syslog.conf
+sudo cp ~/ELK-stack/10-syslog.conf /etc/logstash/conf.d
+#sudo service logstash restart
+
+##Install kibana##
+
+sudo wget https://download.elastic.co/kibana/kibana/kibana-4.1.1-linux-x64.tar.gz
+sudo tar zxvf kibana-4.1.1-linux-x64.tar.gz
+
