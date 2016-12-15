@@ -22,7 +22,7 @@ sudo apt-get update -y
 
 sudo apt-get install -y logstash
 sudo update-rc.d logstash defaults 97 8
-#sudo service logstash start
+sudo service logstash start
 
 ##Test to see if it runs##
 
@@ -38,8 +38,13 @@ sudo service logstash restart
 sudo wget https://download.elastic.co/kibana/kibana/kibana-4.1.1-linux-x64.tar.gz
 sudo tar zxvf kibana-4.1.1-linux-x64.tar.gz
 
-sudo mkdir -p kibana-4.1.1-linux-x64/* /opt/kibana
-cd /etc/init.d && sudo wget https://raw.githubusercontent.com/akabdog/scripts/master/kibana4_init -O kibana4
+sudo mkdir -p /opt/kibana
+sudo mv kibana-4.1.1-linux-x64/* /opt/kibana
+cd /etc/init.d && sudo wget https://raw.githubusercontent.com/akabdog/scripts/master/kibana4_init -$
 sudo chmod +x /etc/init.d/kibana4
 sudo update-rc.d kibana4 defaults 96 9
 sudo service kibana4 start
+
+##Restart the service##
+
+sudo service elasticsearch restart && sudo service logstash restart && sudo service kibana4 restart
